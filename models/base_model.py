@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import uuid
 import datetime
+import models
 """
  Class that serves as a template for creating other model classes.
 
@@ -16,6 +17,10 @@ class BaseModel():
         self.created_at = datetime.datetime.now()
         self.updated_at = self.created_at
         
+        if not kwargs:
+            
+            models.storage.new(self)
+
         for key, value in kwargs.items():
             if key == '__class__':
                 continue
@@ -26,10 +31,11 @@ class BaseModel():
     def __str__(self):
         """
         method is defined to return a string representation of the instance """
-        return (f"[{type(self).__name__}] ({self.id}) ({self.__dict__})")
+        return (f"[{type(self).__name__}] ({self.id}) {self.__dict__}")
 
     def save(self):
         """  update the the instance with current time """
+        models.storage.save()
         self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
