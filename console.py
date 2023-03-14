@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 import cmd
-
+""" class for command """
 
 class HBNBCommand(cmd.Cmd):
+
+    """ some document """
+
     prompt = "(hbnb) "
     
     def do_quit(self, arg):
