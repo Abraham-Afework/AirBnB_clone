@@ -213,11 +213,11 @@ class HBNBCommand(cmd.Cmd):
         class_attr = type(storage_data[key]).__dict__
 
         if attr_k in class_attr.keys():
-           try:
-               attr_v = type(class_attr[attr_k])(attr_v)
-           except Exception:
-               print("Entered wrong value type")
-               return
+            try:
+                attr_v = type(class_attr[attr_k])(attr_v)
+            except Exception:
+                print("Entered wrong value type")
+                return
 
         setattr(storage_data[key], attr_k, attr_v)
         models.storage.save()
@@ -245,14 +245,14 @@ class HBNBCommand(cmd.Cmd):
 
         if args[0] in methods:
             """ Checks if the first argument (method name) is valid """
-            if args[1] in ["all()","count"]:
+            if args[1] in ["all()", "count"]:
 
                 commands[args[1]](args[0])
             elif args[1] in ["show", "destroy"]:
 
                 commands[args[1]](args[0])
             elif args[1] == "update":
-            
+
                 print("wow")
             else:
                 print("*** Unknown syntax: {}".format(line))
