@@ -251,6 +251,9 @@ class HBNBCommand(cmd.Cmd):
             if args[1] in ["show", "destroy"]:
 
                 commands[args[1]](args[0])
+            if args[1] == "update":
+                 print("wow")
+
 
     def do_count(self, line):
         """
