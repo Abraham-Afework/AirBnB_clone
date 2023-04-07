@@ -19,14 +19,15 @@ class BaseModel():
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
             models.storage.new(self)
-
-        for key, value in kwargs.items():
-            if key == '__class__':
-                continue
-            if key == 'created_at' or key == 'updated_at':
-                value = datetime.datetime.strptime(
-                    value, "%Y-%m-%dT%H:%M:%S.%f")
-            setattr(self, key, value)
+        else:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    continue
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.datetime.strptime(
+                        value, "%Y-%m-%dT%H:%M:%S.%f")
+                else:
+                    setattr(self, key, value)
 
     def __str__(self):
         """
