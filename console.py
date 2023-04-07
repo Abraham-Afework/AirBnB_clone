@@ -234,7 +234,7 @@ class HBNBCommand(cmd.Cmd):
         """ A list of valid method names """
         commands = {
             "all()": self.do_all,
-            "count": self.do_count,
+            "count()": self.do_count,
             "show": self.do_show,
             "destroy": self.do_destroy,
             "update": self.do_update
@@ -245,7 +245,7 @@ class HBNBCommand(cmd.Cmd):
 
         if args[0] in methods:
             """ Checks if the first argument (method name) is valid """
-            if args[1] in ["all()", "count"]:
+            if args[1] in ["all()", "count()"]:
 
                 commands[args[1]](args[0])
             elif args[1] in ["show", "destroy"]:
