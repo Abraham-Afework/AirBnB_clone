@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 City class, a subclass of BaseModel
 """

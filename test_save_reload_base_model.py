@@ -1,28 +1,32 @@
 #!/usr/bin/python3
-from models import storage
-from models.base_model import BaseModel
-from models.user import User
+from models.place import Place
 
-all_objs = storage.all()
-print("-- Reloaded objects --")
-for obj_id in all_objs.keys():
-    obj = all_objs[obj_id]
-    print(obj)
+print(type(Place.city_id) is str)
+print(Place.city_id == "")
 
-print("-- Create a new User --")
-my_user = User()
-my_user.first_name = "Betty"
-my_user.last_name = "Bar"
-my_user.email = "airbnb@mail.com"
-my_user.password = "root"
-my_user.save()
-print(my_user.email)
-print(my_user.first_name)
+print(type(Place.user_id) is str)
+print(Place.user_id == "")
 
-print("-- Create a new User 2 --")
-my_user2 = User()
-my_user2.first_name = "John"
-my_user2.email = "airbnb2@mail.com"
-my_user2.password = "root"
-my_user2.save()
-print(my_user2)
+print(type(Place.name) is str)
+print(Place.name == "")
+
+print(type(Place.description) is str)
+print(Place.description == "")
+
+print(type(Place.number_rooms) is int)
+print(Place.number_rooms == 0)
+
+print(type(Place.number_bathrooms) is int)
+print(Place.number_bathrooms == 0)
+
+print(type(Place.max_guest) is int)
+print(Place.max_guest == 0)
+
+print(type(Place.price_by_night) is int)
+print(Place.price_by_night == 0)
+
+print(type(Place.latitude) is float)
+print(Place.latitude == 0)
+
+print(type(Place.longitude) is float)
+print(Place.longitude == 0)
