@@ -9,8 +9,9 @@ import models
 
 
 class BaseModel():
-        
+
     date_format = "%Y-%m-%dT%H:%M:%S.%f"
+
     def __init__(self, *args, **kwargs):
         """ initializes the instance """
         if not kwargs:
@@ -23,8 +24,9 @@ class BaseModel():
             if key == '__class__':
                 continue
             if key == 'created_at' or key == 'updated_at':
-                value = datetime.datetime.strptime(value,"%Y-%m-%dT%H:%M:%S.%f")
-            setattr(self,key,value)
+                value = datetime.datetime.strptime(
+                    value, "%Y-%m-%dT%H:%M:%S.%f")
+            setattr(self, key, value)
 
     def __str__(self):
         """

@@ -16,7 +16,8 @@ my_user.last_name = "Bar"
 my_user.email = "airbnb@mail.com"
 my_user.password = "root"
 my_user.save()
-print(my_user)
+print(my_user.email)
+print(my_user.first_name)
 
 print("-- Create a new User 2 --")
 my_user2 = User()
