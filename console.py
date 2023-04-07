@@ -105,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
 
         """
         exit(1)
-        
+
     def emptyline(self):
         """
         The emptyline method does nothing when the user inputs an empty line.
@@ -224,61 +224,59 @@ class HBNBCommand(cmd.Cmd):
         setattr(storage_data[key], attr_k, attr_v)
         models.storage.save()
 
+    def default(self, line):
+        """
+            A method that handles the input commands that are not recognized by
+            the existing commands.  It parses the input line to extract the
+            method name and arguments, checks if the method name is valid,
+        """
+        methods = ["BaseModel", "User", "State",
+                   "City", "Amenity", "Place", "Review"]
 
-def default(self, line):
-    """
-    A method that handles the input commands that are not recognized by
-        the existing commands.  It parses the input line to extract the
-        method name and arguments, checks if the method name is valid,
-        and execute the appropriate command based on the extracted method name
-    """
-    methods = ["BaseModel", "User", "State",
-               "City", "Amenity", "Place", "Review"]
-    # A list of valid method names
-    commands = {
-        "all()": self.do_all,
-        "count": self.do_count,
-        "show": self.do_show,
-        "destroy": self.do_destroy,
-        "update": self.do_update
-    }
-    """ A dictionary of valid commands and their corresponding functiions """
-    args = line.split('.')
+        """ A list of valid method names """
+        commands = {
+            "all()": self.do_all,
+            "count": self.do_count,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "update": self.do_update
+        }
+        args = line.split('.')
 
-    """ Splits the input line by the period (.) separator"""
-    if args[0] in methods:
-        """ Checks if the first argument (method name) is valid """
-        if args[1] in ["all"]:
+        """ Splits the input line by the period (.) separator"""
 
-            commands[args[1]](args[0])
+        if args[0] in methods:
+            """ Checks if the first argument (method name) is valid """
+            if args[1] in ["all()","count"]:
 
-        if args[1] in ["show", "destroy"]:
+                commands[args[1]](args[0])
+            if args[1] in ["show", "destroy"]:
 
-            commands[args[1]](args[0])
+                commands[args[1]](args[0])
 
+    def do_count(self, line):
+        """
+            A method that counts the number of objects of a given
+            class in the data store.
+            It extracts the class name from the input
+            line and iterates over all objects in the data store,
+            incrementing a counter for each object whose class name matches
+            the given class name. Finally, it prints the counter value.
+        """
+        self.count = 0
+        """ Initializes the counter """
+        data = models.storage.all()
+        """ Retrieves all objects from the data store """
+        input_data = line.split()
+        """ Splits the input line by the whitespace separator """
+        for value in data.values():
+            if value.__class__.__name__ == input_data[0]:
+                """ Checks if the class name of the object
+                matches the given class name """
 
-def do_count(self, line):
-    """
-    A method that counts the number of objects of a given
-    class in the data store.
-    It extracts the class name from the input
-    line and iterates over all objects in the data store,
-    incrementing a counter for each object whose class name matches
-    the given class name. Finally, it prints the counter value.
-    """
-    self.count = 0
-    """ Initializes the counter """
-    data = models.storage.all()
-    """ Retrieves all objects from the data store """
-    input_data = line.split()
-    """ Splits the input line by the whitespace separator """
-    for value in data.values():
-        if value.__class__.__name__ == input_data[0]:
-            """ Checks if the class name of the object
-            matches the given class name """
-            self.count += 1
-            """ Increments the counter """
-    print(self.count)
+                self.count += 1
+                """ Increments the counter """
+        print(self.count)
 
 
 if __name__ == '__main__':
