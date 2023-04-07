@@ -212,15 +212,13 @@ class HBNBCommand(cmd.Cmd):
             pass
         class_attr = type(storage_data[key]).__dict__
 
-        for key, value in class_attr.items():
-            print(f"{key} : {class_attr[key]}")
-            print()
         if attr_k in class_attr.keys():
-            try:
-                attr_v = type(class_attr[attr_k])(attr_v)
-            except Exception:
-                print("Entered wrong value type")
-                return
+           try:
+               attr_v = type(class_attr[attr_k])(attr_v)
+           except Exception:
+               print("Entered wrong value type")
+               return
+
         setattr(storage_data[key], attr_k, attr_v)
         models.storage.save()
 
