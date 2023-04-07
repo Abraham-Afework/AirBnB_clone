@@ -31,20 +31,17 @@ class BaseModel():
     def __str__(self):
         """
         method is defined to return a string representation of the instance """
-        return (f"[{type(self).__name__}] ({self.id}) {self.__dict__}")
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                self.id, self.__dict__)
 
     def save(self):
         """  update the the instance with current time """
-        models.storage.save()
         self.updated_at = datetime.datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """returns the dictionary representation of the instance """
-        # result = self.__dict__.copy()
-        # result['__class__'] = type(self).__name__
-        # result['created_at'] = self.created_at.strftime(self.date_format)
-        # result['updated_at'] = self.updated_at.strftime(self.date_format)
-        # return result
+        
         """   Method returns a dictionary containing all
         keys/values of __dict__ instance
         """
