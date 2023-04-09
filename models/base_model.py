@@ -19,20 +19,20 @@ class BaseModel():
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
             models.storage.new(self)
-        
+
         for key, value in kwargs.items():
             if key == '__class__':
-                  continue
+                continue
             if key == 'created_at' or key == 'updated_at':
-               value = datetime.datetime.strptime(
-                      value, "%Y-%m-%dT%H:%M:%S.%f")
+                value = datetime.datetime.strptime(
+                    value, "%Y-%m-%dT%H:%M:%S.%f")
             setattr(self, key, value)
 
     def __str__(self):
         """
         method is defined to return a string representation of the instance """
         return "[{}] ({}) {}".format(self.__class__.__name__,
-                self.id, self.__dict__)
+                                     self.id, self.__dict__)
 
     def save(self):
         """  update the the instance with current time """
@@ -41,7 +41,7 @@ class BaseModel():
 
     def to_dict(self):
         """returns the dictionary representation of the instance """
-        
+
         """   Method returns a dictionary containing all
         keys/values of __dict__ instance
         """

@@ -3,6 +3,7 @@
     Main Console program
 """
 import cmd
+import re
 import models
 from models.base_model import BaseModel
 from models.user import User
@@ -199,6 +200,7 @@ class HBNBCommand(cmd.Cmd):
 
         for i in range(len(input_data[1:]) + 1):
             if input_data[i][0] == '"':
+
                 input_data[i] = input_data[i].replace('"', "")
         key = input_data[0] + '.' + input_data[1]
         attr_k = input_data[2]
@@ -239,21 +241,33 @@ class HBNBCommand(cmd.Cmd):
             "destroy": self.do_destroy,
             "update": self.do_update
         }
-        args = line.split('.')
 
         """ Splits the input line by the period (.) separator"""
+        args = line.split('.')
+
+        """ Pattern will to be checked with show and destroy methods"""
+        pattern = r"(.*)\((.*?)\)"
+        first_arg = None
+        second_arg = None
+        try:
+            match = re.search(pattern, args[1])
+            """" first argument is the show or destroy """
+            first_arg = match.group(1)
+            """ The second argument is the the attribute values of the class"""
+            second_arg = match.group(2).replace(',', "")
+        except Exception:
+            pass
 
         if args[0] in methods:
             """ Checks if the first argument (method name) is valid """
             if args[1] in ["all()", "count()"]:
 
                 commands[args[1]](args[0])
-            elif args[1] in ["show", "destroy"]:
 
-                commands[args[1]](args[0])
-            elif args[1] == "update":
+            elif first_arg in ["show", "destroy", "update"]:
 
-                print("wow")
+                commands[first_arg](args[0] + " " + second_arg)
+
             else:
                 print("*** Unknown syntax: {}".format(line))
 
